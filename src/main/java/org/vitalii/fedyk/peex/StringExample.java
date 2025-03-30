@@ -1,5 +1,7 @@
 package org.vitalii.fedyk.peex;
 
+import java.util.stream.IntStream;
+
 public class StringExample {
     private static String reverseString(final String string) {
         final StringBuilder stringBuilder = new StringBuilder(string);
@@ -7,7 +9,8 @@ public class StringExample {
     }
 
     public static void main(String[] args) {
-        final String string = "Hello World";
+        final char[] chars = "Hello World".toCharArray();
+        final String string = new String(chars);
 
         System.out.println("Basic string is " + string);
         System.out.println("Length of string: " + string.length());
@@ -18,5 +21,7 @@ public class StringExample {
         System.out.println("Concatenated string: " + string.concat("!"));
         System.out.println("Substring from 2 to 5: " + string.substring(2, 5));
         System.out.println("Reversed string: " + reverseString(string));
+
+
     }
 }
