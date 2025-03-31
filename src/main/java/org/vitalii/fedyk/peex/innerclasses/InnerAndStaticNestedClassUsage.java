@@ -8,6 +8,11 @@ class Outer {
     private String firstName;
     private String lastName;
 
+    private Outer(Builder builder) {
+        firstName = builder.firstName;
+        lastName = builder.lastName;
+    }
+
     private String delimiter() {
         return Concatenator.Delimiter.ONE_WHITESPACE.getString();
     }
@@ -29,11 +34,40 @@ class Outer {
             return stringBuilder.reverse().toString();
         }
     }
+
+    static class Builder {
+        private String firstName;
+        private String lastName;
+
+        private Builder() {
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public Builder firstName(String val) {
+            firstName = val;
+            return this;
+        }
+
+        public Builder lastName(String val) {
+            lastName = val;
+            return this;
+        }
+
+        public Outer build() {
+            return new Outer(this);
+        }
+    }
 }
 
-public class InnerClassUsage {
+public class InnerAndStaticNestedClassUsage {
     public static void main(String[] args) {
-        final Outer outer = new Outer("Vitalii", "Fedyk");
+        final Outer outer = Outer.Builder.builder()
+                .firstName("Vitalii")
+                .lastName("Fedyk")
+                .build();
         System.out.println("Full name is " + outer.concatenatedString());
         Outer.ReverseDisplaying reverseDisplaying = outer.new ReverseDisplaying();
         System.out.println("Reversed string is " + reverseDisplaying.reverse());
