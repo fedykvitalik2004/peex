@@ -1,7 +1,5 @@
 package org.vitalii.fedyk.peex;
 
-import java.util.stream.IntStream;
-
 public class StringExample {
     private static String reverseString(final String string) {
         final StringBuilder stringBuilder = new StringBuilder(string);
