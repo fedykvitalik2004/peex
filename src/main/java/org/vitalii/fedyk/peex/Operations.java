@@ -1,8 +1,7 @@
 package org.vitalii.fedyk.peex;
 
-import java.util.Objects;
-
 public class Operations {
+    //Arithmetical
     private static void printMathematicalOperators(final double a, final double b) {
         System.out.println("Sum is " + (a + b));
         System.out.println("Difference is " + (a - b));
@@ -28,6 +27,9 @@ public class Operations {
     }
 
     public static void printAssignmentOperators(final int a, final int b) {
+        /*
+            Here are all operations
+         */
         int x = a;
 
         x += b;
