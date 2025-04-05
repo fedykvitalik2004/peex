@@ -4,6 +4,7 @@ import org.vitalii.fedyk.peex.sorting.Person;
 
 import java.util.*;
 import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 public class IteratingCollections {
     public static class Displaying {
@@ -97,6 +98,7 @@ public class IteratingCollections {
 
         System.out.println("\nSorting integers in reverse order using Comparator.naturalOrder");
         Collections.sort(list, Comparator.naturalOrder());
+        list.stream().findAny().ifPresent(o -> System.out.println("Used method findAny: " + o));
         Displaying.displayElementsUsingForEach(list);
         int indexOfInitialElement = Collections.binarySearch(list, initialElement);
         System.out.println("Index of " + initialElement + " is " + indexOfInitialElement);
@@ -123,5 +125,30 @@ public class IteratingCollections {
         Displaying.displayElementsUsingForEach(personList);
 
         findFirstSortedElementInAscendingOrder(personList).ifPresent(o -> System.out.println("The first element is " + o));
+
+        System.out.println();
+        Stream.of("one", "two", "three", "four")
+                .parallel()
+                .map(o -> {
+                    final String upperCaseString = o.toUpperCase();
+                    System.out.println("Used method for transforming into upper case: " + upperCaseString +
+                                       " in thread " + Thread.currentThread().getName());
+                    return o;
+                })
+                .findFirst()
+                .ifPresent(System.out::println);
+
+        Stream.of("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
+                .parallel()
+                .map(o -> {
+                    final String upperCaseString = o.toUpperCase();
+                    System.out.println("Used method for transforming into upper case: " + upperCaseString +
+                                       " in thread " + Thread.currentThread().getName());
+                    return o;
+                })
+                .findAny() //Always returns first in parallel stream
+                .ifPresent(System.out::println);
+
+
     }
 }
