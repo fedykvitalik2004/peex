@@ -91,7 +91,7 @@ class BankAccount {
         BankStorage.addAccount(this);
     }
 
-    public void addNotification(final Notification notification) {
+    public final void addNotification(final Notification notification) {
         notifications.add(notification);
     }
 

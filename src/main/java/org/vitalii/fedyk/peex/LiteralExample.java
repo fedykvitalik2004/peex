@@ -42,13 +42,5 @@ public class LiteralExample {
         System.out.println("\nBooleans are " + positiveValue + " and " + negativeValue);
         //Null
         System.out.println("\nNull literal is " + null);
-        //Casting problems
-        //1. Overflow.
-        int i = 300;
-        byte b = (byte) i;  // b = 44
-        System.out.println("(byte) 300: " + b);
-        //2. Division by 0
-        final double divisionByZero = 10 / 0.; //Infinity
-        System.out.println("Double division by 0: " + divisionByZero);
     }
 }
