@@ -80,7 +80,7 @@ class BankAccount {
     @Setter
     private FullName fullName;
     @Setter(value = AccessLevel.PROTECTED)
-    private double balance = 0;
+    protected double balance = 0;
     @Setter
     private BankAccountStatus status;
     private final List<Notification> notifications = new ArrayList<>();
@@ -91,7 +91,7 @@ class BankAccount {
         BankStorage.addAccount(this);
     }
 
-    public void addNotification(final Notification notification) {
+    public final void addNotification(final Notification notification) {
         notifications.add(notification);
     }
 
@@ -99,7 +99,7 @@ class BankAccount {
         balance += amount;
     }
 
-    public final void processTransaction(final UUID anotherUserId, final double amount) {
+    public void processTransaction(final UUID anotherUserId, final double amount) {
         final double currentAccountBalance = balance - amount;
         if (currentAccountBalance < 0) {
             throw new OperationNotPermittedException("You cannot transfer such amount of money, because this amount " +
@@ -139,13 +139,34 @@ class BankAccount {
     }
 }
 
+class LimitedBankAccount extends BankAccount {
+    private int percentage;
+
+    public LimitedBankAccount(final FullName fullName, BankAccountStatus status, final int percentage) {
+        super(fullName, status);
+        if (percentage <= 0 || percentage >= 100) {
+            throw new OperationNotPermittedException("Percentage should be between 0 and 100. They are exclusive");
+        }
+        this.percentage = percentage;
+    }
+
+    @Override
+    public void topUp(double amount) {
+        balance += (1 - (double) percentage / 100) * amount;
+    }
+
+    public void setPercentage(int percentage) {
+        this.percentage = percentage;
+    }
+}
+
 public class FinalUsage {
     public static void main(String[] args) {
-        final BankAccount regularBankAccount = new BankAccount(
+        final BankAccount regularBankAccount = new LimitedBankAccount(
                 FullName.builder()
                         .firstName("Rick")
                         .lastName("Novac")
-                        .build(), BankAccountStatus.REGULAR
+                        .build(), BankAccountStatus.REGULAR, 25
         );
         regularBankAccount.topUp(1000);
         final BankAccount premiumBankAccount = new BankAccount(

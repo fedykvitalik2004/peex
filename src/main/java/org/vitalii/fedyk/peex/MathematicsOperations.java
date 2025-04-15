@@ -8,7 +8,7 @@ import java.util.Random;
 public class MathematicsOperations {
     private final static Random random = new Random();
 
-    private static int generateIntegerRandomNumber(final int min, final int max) {
+    public static int generateIntegerRandomNumber(final int min, final int max) {
         return random.nextInt(max - min + 1) + min;
     }
 
@@ -27,11 +27,11 @@ public class MathematicsOperations {
         return Math.abs(value) < 1e-10 ? 0.0 : value;
     }
 
-    private static double calculateExponential(final double x) {
+    public static double calculateExponential(final double x) {
         return Math.exp(x);
     }
 
-    private static double calculateLogarithm10(final double x) {
+    public static double calculateLogarithm10(final double x) {
         return Math.log10(x);
     }
 

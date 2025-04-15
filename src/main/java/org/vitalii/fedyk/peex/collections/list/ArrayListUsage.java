@@ -23,6 +23,9 @@ public class ArrayListUsage {
         //O(n), Shifting happens.
         list.remove(1);
 
+        System.out.println("Setting a new element on position 1");
+        //O(1)
+        list.set(1, "Replaced");
         display(list);
 
         System.out.println("Array is " + Arrays.toString(list.toArray()));
